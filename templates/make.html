@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Get in line
+{% endblock %}
+
+{% block body %}
+<h1>{{ table.name }}</h1>
+<div class="big3">
+    <div class="container2">
+        <form method="POST" action="{{ url_for('make', table_id=table.id) }}">
+            <div class="input_name">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+                <button type="submit">Add to Queue</button>
+        </div>
+        </form>
+    </div>
+</div>
+<div class="big4">
+    <div class="container3">
+        <h2>Текущая очередь</h2>
+        <ul>
+            {% for entry in entries %}
+                <li>{{ entry.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

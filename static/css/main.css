@@ -1,0 +1,224 @@
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: 'Century Gothic'
+}
+
+header {
+    background-color: #ffffff;
+    color: white;
+    padding: 10px 0;
+    margin-top: 20px;
+    position: sticky;
+    top: 0;
+}
+
+.hat {
+    text-align: center;
+}
+    
+.hat a {
+    color: rgb(0, 0, 0);
+    margin: 0 80px;
+    text-decoration: none;
+    font-size: 30px;
+    display: inline-block; 
+    transition: transform 0.3s ease;
+}
+    
+.hat a:hover {
+    transform: scale(1.2);
+}
+
+.hat button {
+    font-family: Century Gothic;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 30px;
+    color: white;
+    text-align: right;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.left_button {
+    margin-left: 100px;
+    background-color: rgb(51, 51, 51);
+}
+
+.left_button:hover {
+    background-color: black;
+}
+
+.right_button {
+    background-color: rgb(51, 51, 51);
+}
+
+.right_button:hover {
+    background-color: black;
+}
+
+.create_new_table {
+    background-color: black;
+    font-family: Century Gothic;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 70px;
+}
+
+.create_new_table:hover {
+    background-color: rgb(51, 51, 51);
+}
+
+h1 {
+    margin-top: 70px;
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 70px;
+}
+
+.table_name {
+    color: rgb(0, 0, 0);
+    margin: 0 80px;
+    text-decoration: none;
+    font-size: 30px;
+    display: inline-block; 
+    transition: transform 0.3s ease;
+}
+
+.table_name:hover {
+    transform: scale(1.2);
+}
+
+.delete_table {
+    font-family: Century Gothic;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 20px;
+    color: white;
+    text-align: right;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+    background-color: rgb(0, 0, 0);
+}
+
+.delete_table:hover {
+    background-color: rgb(51, 51, 51);
+}
+
+.table_scroll {
+    display: flex;
+    justify-content: center;
+}
+
+.big_create {
+    display: flex;
+  justify-content: center;
+}
+
+.big2 {
+    display: flex;
+    justify-content: center;
+}
+.container1 {
+    margin-top: 70px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.input_group {
+    display: flex;
+    align-items: center;
+}
+
+.create_table_name {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.input_group input {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 16px;
+}
+
+.input_group button {
+    padding: 10px 15px;
+    border: 1px solid #444;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    background-color: black;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+
+.input_group button:hover {
+    background-color: rgb(51, 51, 51);
+}
+
+.big3 {
+    display: flex;
+    justify-content: center;
+}
+.container2 {
+    margin-top: 0px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.input_name input {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 16px;
+}
+
+.input_name button {
+    padding: 10px 15px;
+    border: 1px solid #444;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    background-color: black;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+
+.input_name button:hover {
+    background-color: rgb(51, 51, 51);
+}
+
+.big4 {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+}
+
+h2 {
+    font-size: 30px;
+}

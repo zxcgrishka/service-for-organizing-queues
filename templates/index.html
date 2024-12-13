@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All tables
+{% endblock %}
+
+{% block body %}
+
+<h1>Таблицы очередей</h1>
+<div class="big_create">
+    <a class="create_new_table" href="{{ url_for('queue') }}">Создать новую таблицу</a>
+</div>
+
+<div class="table_scroll">
+    <ul>
+        {% for table in tables %}
+            <li>
+                <a class="table_name" href="{{ url_for('make', table_id=table.id) }}">{{ table.name }}</a>
+                <form method="POST" action="{{ url_for('delete_table', table_id=table.id) }}" style="display:inline;">
+                    <button class="delete_table" type="submit" onclick="return confirm('Вы уверены, что хотите удалить эту таблицу?');">Удалить таблицу</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

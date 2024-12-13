@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create table
+{% endblock %}
+
+{% block body %}
+<div class="big2">
+    <div class="container1">
+        <form method="POST">
+            <div class="input_group">
+                <label class="create_table_name" for="table_name">Table Name:</label>
+                <input type="text" id="table_name" name="table_name" required>
+                <button type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
