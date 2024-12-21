@@ -12,9 +12,15 @@
     <header>
         <nav class="hat">
             <a href="{{ url_for('index') }}">Все таблицы</a>
-            <a href="{{ url_for('queue') }}">Создать таблицу</a>
-            <button id="registerButton">Зарегистрироваться</button>
-            <button id="loginButton">Войти</button>
+            {% if current_user.is_authenticated %}
+                {% if current_user.is_admin %}
+                    <a href="{{ url_for('queue') }}">Создать таблицу</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Выйти</a>
+            {% else %}
+                <a href="{{ url_for('register') }}">Зарегистрироваться</a>
+                <a href="{{ url_for('login') }}">Войти</a>
+            {% endif %}
         </nav>
     </header>
     {% block body %}{% endblock %}

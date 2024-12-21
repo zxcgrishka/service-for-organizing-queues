@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 import os
 import sys
 
@@ -12,11 +13,14 @@ class Config:
 
 # Инициализация приложения
 db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.login_view = 'login'
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     db.init_app(app)
+    login_manager.init_app(app)
 
     with app.app_context():
         db.create_all()
@@ -26,11 +30,12 @@ def create_app():
 app = create_app()
 
 # Модели
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
 class QueueTable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -46,6 +51,12 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     group = db.Column(db.Integer, nullable=False)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 
 # Маршруты
 @app.route('/')
@@ -78,7 +89,7 @@ def login():
 
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
-            session['user_id'] = user.id
+            login_user(user)
             return redirect(url_for('dashboard'))
         else:
             return 'Invalid credentials'
@@ -87,23 +98,23 @@ def login():
 
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
-    if 'user_id' in session:
-        return render_template('dashboard.html')
-    else:
-        return redirect(url_for('login'))
+    return redirect(url_for('login'))
 
 
 @app.route('/logout')
+@login_required
 def logout():
-    session.pop('user_id', None)
+    logout_user()
     return redirect(url_for('login'))
 
 
 @app.route('/queue', methods=['GET', 'POST'])
+@login_required
 def queue():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
+    if not current_user.is_admin:
+        return 'только админы'
     
     if request.method == 'POST':
         table_name = request.form['table_name']
@@ -115,10 +126,8 @@ def queue():
 
 
 @app.route('/make/<int:table_id>', methods=['GET', 'POST'])
+@login_required
 def make(table_id):
-    if 'user_id' not in session:
-        return redirect (url_for('login'))
-    
     table = QueueTable.query.get_or_404(table_id)
     if request.method == 'POST':
         name = request.form['name']
@@ -131,9 +140,10 @@ def make(table_id):
 
 
 @app.route('/delete/<int:table_id>', methods=['POST'])
+@login_required
 def delete_table(table_id):
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
+    if not current_user.is_admin:
+        return 'только админы'
     
     table = QueueTable.query.get_or_404(table_id)
     QueueEntry.query.filter_by(table_id=table.id).delete()
