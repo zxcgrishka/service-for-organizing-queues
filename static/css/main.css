@@ -222,3 +222,120 @@ h1 {
 h2 {
     font-size: 30px;
 }
+
+.search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 2px solid #000;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.search input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.search button {
+    padding: 10px 20px;
+    font-size: 18px; 
+    color: #fff; 
+    background-color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search button:hover {
+    background-color: #555;
+}
+
+.search_big {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.register {
+    font-family: 'Century Gothic';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 2px solid #000;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.register h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #000;
+}
+
+.register form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.register label {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #000;
+}
+
+.register input[type="text"],
+.register input[type="password"],
+.register input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.register button {
+    font-family: 'Century Gothic';
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register button:hover {
+    background-color: #555;
+}
+
+.big_register {
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+}

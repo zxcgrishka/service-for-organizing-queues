@@ -16,7 +16,7 @@
                 {% if current_user.is_admin %}
                     <a href="{{ url_for('queue') }}">Создать таблицу</a>
                 {% endif %}
-                <a href="{{ url_for('logout') }}">Выйти</a>
+                <a href="{{ url_for('logout') }}" onclick="return confirm('Вы уверены, что хотите выйти?');">Выйти</a>
             {% else %}
                 <a href="{{ url_for('register') }}">Зарегистрироваться</a>
                 <a href="{{ url_for('login') }}">Войти</a>

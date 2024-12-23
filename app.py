@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for 
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
-import os
-import sys
+from datetime import datetime
 
 # Конфигурация
 class Config:
@@ -41,16 +40,12 @@ class QueueTable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     entries = db.relationship('QueueEntry', backref='table', lazy=True)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
 
 class QueueEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     table_id = db.Column(db.Integer, db.ForeignKey('queue_table.id'), nullable=False)
-
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    group = db.Column(db.Integer, nullable=False)
 
 
 @login_manager.user_loader
@@ -61,7 +56,7 @@ def load_user(user_id):
 # Маршруты
 @app.route('/')
 def index():
-    tables = QueueTable.query.all()
+    tables = QueueTable.query.order_by(QueueTable.date.desc()).all()
     return render_template('index.html', tables=tables)
 
 
@@ -92,7 +87,7 @@ def login():
             login_user(user)
             return redirect(url_for('dashboard'))
         else:
-            return 'Invalid credentials'
+            return 'Неверные данные'
 
     return render_template('login.html')
 
@@ -100,7 +95,7 @@ def login():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 
 @app.route('/logout')
@@ -110,12 +105,18 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/search', methods=['GET'])
+def search():
+    searching_table = request.args.get('searching_table')
+    results = []
+    if searching_table:
+        results = QueueTable.query.filter(QueueTable.name.ilike(f'%{searching_table}%')).all()
+    return render_template('index.html', searching_table=searching_table, results=results)
+
+
 @app.route('/queue', methods=['GET', 'POST'])
 @login_required
 def queue():
-    if not current_user.is_admin:
-        return 'только админы'
-    
     if request.method == 'POST':
         table_name = request.form['table_name']
         new_table = QueueTable(name=table_name)
@@ -142,9 +143,6 @@ def make(table_id):
 @app.route('/delete/<int:table_id>', methods=['POST'])
 @login_required
 def delete_table(table_id):
-    if not current_user.is_admin:
-        return 'только админы'
-    
     table = QueueTable.query.get_or_404(table_id)
     QueueEntry.query.filter_by(table_id=table.id).delete()
     db.session.delete(table)
