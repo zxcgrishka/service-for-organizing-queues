@@ -10,3 +10,4 @@ venv/
 .idea/
 /instance/
 *.db
+app/__pycache__/
