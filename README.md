@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 3. Запустите приложение:
 ```bash
-python app.py
+python run.py
 ```
 
 ## Docker
